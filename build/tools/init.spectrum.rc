@@ -61,7 +61,7 @@ on property:persist.spectrum.profile=0
     write /sys/module/adreno_idler/parameters/adreno_idler_active Y
     write /sys/class/kgsl/kgsl-3d0/devfreq/max_freq 600000000
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
-    write /sys/block/mmcblk0/queue/scheduler zen
+    write /sys/block/mmcblk0/queue/scheduler maple
     write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 0
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lazyplug/parameters/lazyplug_active 1

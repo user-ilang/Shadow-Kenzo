@@ -55,8 +55,8 @@ SWAP=40
 VFS=100
 GLVL=7
 GFREQ=200000000
-TEMPTT=70
-TEMPTL=50
+TEMPTT=65
+TEMPTL=45
 LPA=1
 LPT=1035
 LPH=8
@@ -257,7 +257,8 @@ echo "write /sys/module/cpu_boost/parameters/input_boost_freq \"$BOOST\"" >> $CO
 echo "write /sys/module/cpu_boost/parameters/input_boost_ms 50" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# SET IO SCHEDULER" >> $CONFIGFILE
-echo "setprop sys.io.scheduler \"zen\"" >> $CONFIGFILE
+echo "setprop sys.io.scheduler \"maple\"" >> $CONFIGFILE
+echo "write /sys/block/mmcblk0/queue/read_ahead_kb 256" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# TOUCH BOOST" >> $CONFIGFILE
 echo "write /sys/module/msm_performance/parameters/touchboost $TBST" >> $CONFIGFILE
@@ -276,6 +277,7 @@ echo "start usertweaks" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "write /sys/module/mdss_fb/parameters/backlight_dimmer y" >> $CONFIGFILE
 echo "write /sys/block/mmcblk0/queue/iostats 0" >> $CONFIGFILE
+echo "write /sys/block/mmcblk1/queue/iostats 0" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# THERMAL SETTINGS" >> $CONFIGFILE
 echo "write /sys/module/msm_thermal/parameters/enabled y" >> $CONFIGFILE
