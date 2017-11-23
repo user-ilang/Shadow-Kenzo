@@ -1,8 +1,8 @@
 ini_set("rom_name",             "Shadow");
-ini_set("rom_version",          "v3.4 Final");
+ini_set("rom_version",          "v3.5");
 ini_set("rom_author",           "energyspear17");
 ini_set("rom_device",           "Kenzo");
-ini_set("rom_date",             "November 10, 2017");
+ini_set("rom_date",             "November 23, 2017");
 
 ini_set("force_colorspace","rgba");
 #ini_set("dp","6");
@@ -31,22 +31,6 @@ alert(
   "For best experience -\n\n1.Don't flash over other kernels. Ensure that you either have a previous version of Shadow or the kernel that came with your rom.\n\n2.Do not use any scripts to tune cpu governors, this kernel already does that for your cpu.\n\n",
   "@warning",
   "OK"
-);
-
-selectbox(
-  "\nMaximum A53 CPU Frequency","<@center><b>\nSelect maximum CPU frequency for the little cluster\n</b></@>","","cpu53.prop",
-  "1440MHz","",0,
-  "1401MHz","(stock)",1,
-  "1382MHz","",0,
-  "1305MHz","",0
-);
-
-selectbox(
-  "\nMaximum A72 CPU Frequency","<@center><b>\nSelect maximum CPU frequency for the big cluster\n</b></@>","","cpu72.prop",
-  "1843MHz","",0,
-  "1804MHz","(stock)",1,
-  "1747MHz","",0,
-  "1612MHz","",0
 );
 
 selectbox(

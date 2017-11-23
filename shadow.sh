@@ -14,7 +14,8 @@
 #
 # Please maintain this if you use this script or any part of it.
 #
-
+VERSION="Nougat"
+DEVICE="Kenzo"
 yellow='\033[0;33m'
 white='\033[0m'
 red='\033[0;31m'
@@ -47,6 +48,7 @@ export KBUILD_BUILD_HOST="xda"
 export KBUILD_BUILD_USER="energyspear17"
 make -j4
 time=$(date +"%d-%m-%y-%T")
+date=$(date +"%d-%m-%y")
 $DTBTOOL -2 -o $KERNEL_DIR/arch/arm64/boot/dt.img -s 2048 -p $KERNEL_DIR/scripts/dtc/ $KERNEL_DIR/arch/arm/boot/dts/
 if ([ $qc -eq 1 ]); then
 mv $KERNEL_DIR/arch/arm64/boot/dt.img $KERNEL_DIR/build/tools/dt1.img
@@ -62,10 +64,10 @@ else
 cd $KERNEL_DIR/build
 rm *.zip > /dev/null 2>&1
 echo -e "$yellow\n Build succesful, generating flashable zip now \n $white"
-zip -r shadow-Kenzo-Cm-Ng.zip * > /dev/null
+zip -r shadow-$DEVICE-$VERSION-$date.zip * > /dev/null
 End=$(date +"%s")
 Diff=$(($End - $Start))
-echo -e "$yellow $KERNEL_DIR/build/shadow-Kenzo-Cm-Ng.zip \n$white"
+echo -e "$yellow $KERNEL_DIR/build/shadow-$DEVICE-$VERSION-$date.zip \n$white"
 echo -e "$gre << Build completed in $(($Diff / 60)) minutes and $(($Diff % 60)) seconds, variant($qc) >> \n $white"
 fi
 cd $KERNEL_DIR
