@@ -14,7 +14,7 @@
 #
 # Please maintain this if you use this script or any part of it.
 #
-VERSION="Nougat"
+VERSION="Oreo"
 DEVICE="Kenzo"
 yellow='\033[0;33m'
 white='\033[0m'

@@ -157,6 +157,8 @@ CRATE=$(cat /tmp/aroma/crate.prop | cut -d '=' -f2)
 if [ $CRATE == 1 ]; then
 CHG=2000
 elif [ $CRATE == 2 ]; then
+CHG=2100
+elif [ $CRATE == 3 ]; then
 CHG=2400
 fi 
 echo "chmod 666 /sys/module/qpnp_smbcharger/parameters/default_dcp_icl_ma" >> $CONFIGFILE

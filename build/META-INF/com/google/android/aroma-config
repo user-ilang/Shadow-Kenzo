@@ -1,8 +1,8 @@
-ini_set("rom_name",             "Shadow");
-ini_set("rom_version",          "v3.5");
+ini_set("rom_name",             "Shadow O");
+ini_set("rom_version",          "v3.6");
 ini_set("rom_author",           "energyspear17");
 ini_set("rom_device",           "Kenzo");
-ini_set("rom_date",             "November 23, 2017");
+ini_set("rom_date",             "November 25, 2017");
 
 ini_set("force_colorspace","rgba");
 #ini_set("dp","6");
@@ -34,13 +34,6 @@ alert(
 );
 
 selectbox(
-  "\n\nWhich selinux mode you want ?","<@center><b>\n\n\n\n\n\n\nPermissive gives more permissions to applications.\nEnforcing restricts some permissions. Choose default if you are not sure.\n</b></@>","","sel.prop",
-  "Default selinux (recommended)","",1,
-  "Enforcing Selinux","",0,
-  "Permissive Selinux","",0
-);
-
-selectbox(
   "\n\nDo you need dt2w ?","<@center><b>\n\n\n\n\n\n\nRemember !\n\nKeeping dt2w enabled will consume little more battery.\n</b></@>","","dt2w.prop",
   "Yes, enable it (with vibration)","",0,
   "Yes, enable it (without vibration)","",0,
@@ -63,6 +56,7 @@ selectbox(
 selectbox(
   "\n\n<@center>Select quick charging support\nWarning ! </@>","<@center><b>\n\n\n\n\n\n\nThis will set your max charging rate limit.\nThis does not affect users with stock charger.\n</b></@>","","crate.prop",
   "2000 mA (default)","",1,
+  "2100 mA (quick)","",0,
   "2400 mA (quick)","",0
 );
 
@@ -83,8 +77,7 @@ selectbox(
 checkbox(
   "\nOther settings","<@center><b>\nSelect the mods you want to install</b>\n\n</@>","","mods.prop",
   "Disable fsync","Faster fileystem performance, but risk of data loss",0,
-  "USB fastcharge","Increase charge current while charging via USB",0,
-  "Audio mod capability","Disable audio codec power gating",0
+  "USB fastcharge","Increase charge current while charging via USB",0
 );
 
 menubox(
