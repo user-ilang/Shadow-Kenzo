@@ -29,6 +29,8 @@ if [ $qc -eq 1 ]; then
 dim=/tmp/dt1.img
 elif [ $qc -eq 2 ]; then
 dim=/tmp/dt2.img
+elif [ $qc -eq 3 ]; then
+dim=/tmp/dt2.img
 fi
 cmd="androidboot.hardware=qcom ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 ramoops_memreserve=4M"
 if [ $selinx -eq 2 ]; then
@@ -37,10 +39,7 @@ elif [ $selinx -eq 3 ]; then
 cmd=$cmd" androidboot.selinux=permissive"
 fi
 cmd=$cmd" cpu_max_c1=1440000"" cpu_max_c2=1843200"
-AUDIO=`grep "item.0.3" /tmp/aroma/mods.prop | cut -d '=' -f2`
-if [ $AUDIO = 1 ]; then
 cmd=$cmd" snd-soc-msm8x16-wcd.dig_core_collapse_enable=0"
-fi
 if [ $therm -eq 1 ]; then
 echo "Using old thermal engine"
 cp /tmp/thermal-engine /system/vendor/bin/thermal-engine
