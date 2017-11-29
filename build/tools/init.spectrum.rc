@@ -59,6 +59,14 @@ on property:persist.spectrum.profile=0
     write /sys/block/mmcblk1/queue/scheduler maple
     write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 0
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lazyplug/parameters/lazyplug_active 1
+    write /sys/module/lazyplug/parameters/cpu_nr_run_threshold 1035
+    write /sys/module/lazyplug/parameters/nr_run_hysteresis 8
+    write /sys/module/lazyplug/parameters/nr_run_profile_sel 0
+    write /sys/module/lazyplug/parameters/nr_possible_cores 6
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/default_pwrlevel 7
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/min_pwrlevel 7
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/devfreq/min_freq 200000000
 
 # Performance
 on property:persist.spectrum.profile=1
@@ -107,6 +115,10 @@ on property:persist.spectrum.profile=1
     write /sys/block/mmcblk1/queue/scheduler fiops
     write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 1
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 0
+    write /sys/module/lazyplug/parameters/lazyplug_active 0
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/default_pwrlevel 7
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/min_pwrlevel 7
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/devfreq/min_freq 200000000
 
 # Battery
 on property:persist.spectrum.profile=2
@@ -153,6 +165,14 @@ on property:persist.spectrum.profile=2
     write /sys/block/mmcblk1/queue/scheduler noop
     write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 0
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lazyplug/parameters/lazyplug_active 1
+    write /sys/module/lazyplug/parameters/cpu_nr_run_threshold 1050
+    write /sys/module/lazyplug/parameters/nr_run_hysteresis 11
+    write /sys/module/lazyplug/parameters/nr_run_profile_sel 4
+    write /sys/module/lazyplug/parameters/nr_possible_cores 6
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/default_pwrlevel 8
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/min_pwrlevel 8
+    write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/devfreq/min_freq 133333333
 
 # Gaming
 on property:persist.spectrum.profile=3
