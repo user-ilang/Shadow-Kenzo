@@ -65,9 +65,13 @@ cd $KERNEL_DIR/build
 rm *.zip > /dev/null 2>&1
 echo -e "$yellow\n Build succesful, generating flashable zip now \n $white"
 zip -r shadow-$DEVICE-$VERSION-$date.zip * > /dev/null
+cd $KERNEL_DIR/export/$VERSION
+rm *.zip > /dev/null 2>&1
+cd $KERNEL_DIR/build
+mv $KERNEL_DIR/build/shadow-$DEVICE-$VERSION-$date.zip $KERNEL_DIR/export/$VERSION/shadow-$DEVICE-$VERSION-$date.zip
 End=$(date +"%s")
 Diff=$(($End - $Start))
-echo -e "$yellow $KERNEL_DIR/build/shadow-$DEVICE-$VERSION-$date.zip \n$white"
+echo -e "$yellow $KERNEL_DIR/export/$VERSION/shadow-$DEVICE-$VERSION-$date.zip \n$white"
 echo -e "$gre << Build completed in $(($Diff / 60)) minutes and $(($Diff % 60)) seconds, variant($qc) >> \n $white"
 fi
 cd $KERNEL_DIR
