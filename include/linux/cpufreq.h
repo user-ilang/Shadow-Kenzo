@@ -15,7 +15,6 @@
 #include <linux/completion.h>
 #include <linux/kobject.h>
 #include <linux/notifier.h>
-#include <linux/pid_namespace.h>
 #include <linux/sysfs.h>
 #include <asm/cputime.h>
 
@@ -165,7 +164,6 @@ static inline void disable_cpufreq(void) { }
 
 #define CPUFREQ_RELATION_L 0  /* lowest frequency at or above target */
 #define CPUFREQ_RELATION_H 1  /* highest frequency below or at target */
-#define CPUFREQ_RELATION_C 2  /* closest frequency to target */
 
 struct freq_attr {
 	struct attribute attr;
@@ -220,9 +218,6 @@ struct cpufreq_driver {
 
 	/* should be defined, if possible */
 	unsigned int	(*get)	(unsigned int cpu);
-
-    unsigned int (*getavg)	(struct cpufreq_policy *policy,
-                                 unsigned int cpu);
 
 	/* optional */
 	int	(*bios_limit)	(int cpu, unsigned int *limit);
@@ -402,9 +397,6 @@ struct cpufreq_governor {
 	struct module		*owner;
 };
 
-extern int __cpufreq_driver_getavg(struct cpufreq_policy *policy,
-                                   unsigned int cpu);
-
 /* Pass a target to the cpufreq driver */
 int cpufreq_driver_target(struct cpufreq_policy *policy,
 				 unsigned int target_freq,
@@ -423,13 +415,6 @@ void cpufreq_unregister_governor(struct cpufreq_governor *governor);
 #ifdef CONFIG_CPU_FREQ_GOV_PERFORMANCE
 extern struct cpufreq_governor cpufreq_gov_performance;
 #endif
-#ifdef CONFIG_CPU_FREQ_GOV_INTERACTIVE
-extern unsigned int cpufreq_interactive_get_hispeed_freq(int cpu);
-#endif
-#ifdef CONFIG_CPU_FREQ_GOV_CAFACTIVE
-extern unsigned int cpufreq_cafactive_get_hispeed_freq(int cpu);
-extern void cafactive_boost_ondemand(int cpu, s64 miliseconds, bool static_switch);
-#endif
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_performance)
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE)
@@ -446,7 +431,7 @@ extern struct cpufreq_governor cpufreq_gov_conservative;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_conservative)
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVE)
 extern struct cpufreq_governor cpufreq_gov_interactive;
-#define CPUFREQ_DEFAULT_GEVERNOR	(&cpufreq_gov_interactive)
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_interactive)
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_CULTIVATION)
 extern struct cpufreq_governor cpufreq_gov_cultivation;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_cultivation)
@@ -511,27 +496,7 @@ static inline int cpufreq_generic_exit(struct cpufreq_policy *policy)
 
 #ifdef CONFIG_CPU_FREQ_STAT
 void acct_update_power(struct task_struct *p, cputime_t cputime);
-void cpufreq_task_stats_init(struct task_struct *p);
-void cpufreq_task_stats_exit(struct task_struct *p);
-void cpufreq_task_stats_remove_uids(uid_t uid_start, uid_t uid_end);
-int  proc_time_in_state_show(struct seq_file *m, struct pid_namespace *ns,
-	struct pid *pid, struct task_struct *p);
 #else
 static inline void acct_update_power(struct task_struct *p, cputime_t cputime) {}
-static inline void cpufreq_task_stats_init(struct task_struct *p) {}
-static inline void cpufreq_task_stats_exit(struct task_struct *p) {}
-static inline void cpufreq_task_stats_remove_uids(uid_t uid_start,
-	uid_t uid_end) {}
-#endif
-
-#ifdef CONFIG_TASK_CPUFREQ_STATS
-void update_time_in_state(struct task_struct *p, int cpu);
-void update_cumulative_time_in_state(struct task_struct *p,
-				     struct task_struct *parent,
-				     int cpu);
-int cpufreq_stats_get_max_state(int cpu);
-void update_freq_table(unsigned int* freq_table, int cpu,
-		       unsigned int max_state);
 #endif
 #endif /* _LINUX_CPUFREQ_H */
-
