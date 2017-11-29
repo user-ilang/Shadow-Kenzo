@@ -29,7 +29,6 @@ ui_print("Summoning Shadow Kernel");
 run_program("/tmp/aroma/sleep","500");
 delete("/system/etc/init.d/99DarknessTweaks");
 package_extract_dir("system", "/system");
-set_perm(0, 0, 0644, "/system/etc/mixer_paths_wcd9326.xml");
 set_perm(0, 0, 0755, "/system/etc/init.d/98FSTrim");
 set_perm(0, 0, 0755, "/system/xbin/busybox");
 unmount("/system");
