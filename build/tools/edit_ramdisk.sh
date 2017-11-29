@@ -277,7 +277,13 @@ echo "write /sys/module/cpu_boost/parameters/input_boost_freq \"$BOOST\"" >> $CO
 echo "write /sys/module/cpu_boost/parameters/input_boost_ms 55" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# SET IO SCHEDULER" >> $CONFIGFILE
+if [ $PROFILE == 1 ]; then
 echo "setprop sys.io.scheduler \"maple\"" >> $CONFIGFILE
+elif [ $PROFILE == 2 ]; then
+echo "setprop sys.io.scheduler \"noop\"" >> $CONFIGFILE
+elif [ $PROFILE == 3 ]; then
+echo "setprop sys.io.scheduler \"fiops\"" >> $CONFIGFILE
+fi
 echo "write /sys/block/mmcblk0/queue/read_ahead_kb 256" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# TOUCH BOOST" >> $CONFIGFILE
