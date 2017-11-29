@@ -90,7 +90,7 @@ elif [ $FC = 0 ]; then
 USB=0
 fi
 echo "# VARIABLES FOR SH" >> $CONFIGFILE
-echo "# zrammode=$INTERACTIVE" >> $CONFIGFILE
+echo "# zrammode=$PROFILE" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# USER TWEAKS" >> $CONFIGFILE
 echo "service usertweaks /system/bin/sh /system/etc/shadow.sh" >> $CONFIGFILE
