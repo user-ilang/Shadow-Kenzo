@@ -1,8 +1,8 @@
-ini_set("rom_name",             "Shadow O");
-ini_set("rom_version",          "v3.6");
+ini_set("rom_name",             "Shadow");
+ini_set("rom_version",          "v3.7");
 ini_set("rom_author",           "energyspear17");
 ini_set("rom_device",           "Kenzo");
-ini_set("rom_date",             "November 25, 2017");
+ini_set("rom_date",             "November 29, 2017");
 
 ini_set("force_colorspace","rgba");
 #ini_set("dp","6");
@@ -41,10 +41,10 @@ selectbox(
 );
 
 selectbox(
-  "\n\nSet your default tuning","<@center><b>\n\n\n\n\n\n\nThis will tune your default kernel settings according to your requirement. Only use interactive governor for maximum results.\n</b></@>","","interactive.prop",
-  "Balanced config","",1,
-  "Battery config","",0,
-  "Gaming config","",0
+  "\n\nSet your profile","<@center><b>\n\n\n\n\n\n\nThis will tune your default kernel settings according to your requirement.\n</b></@>","","profile.prop",
+  "Balanced profile","",1,
+  "Battery profile","",0,
+  "Performance profile","",0
 );
 
 selectbox(
