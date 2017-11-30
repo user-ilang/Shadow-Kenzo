@@ -4,9 +4,9 @@ CONFIGFILE="/tmp/init.shadow.rc"
 PROFILE=$(cat /tmp/aroma/profile.prop | cut -d '=' -f2)
 if [ $PROFILE == 1 ]; then
 GOV="impulse"
-BOOST="0:1190400 4:1113600"
-FMS=691200
-FMB=883200
+BOOST="0"
+FMS=400000
+FMB=400000
 FMAS=1440000
 FMAB=1843200
 AID=N
@@ -221,8 +221,8 @@ echo "write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor \"$GOV\"" >> $
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq $FMB" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq $FMAB" >> $CONFIGFILE
 if [ $PROFILE == 1 ]; then
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/above_hispeed_delay \"15000 1382400:25000\"" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/go_hispeed_load 80" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/above_hispeed_delay \"19000 1382400:39000\"" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/go_hispeed_load 100" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/timer_rate 20000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/hispeed_freq 1382400" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/timer_slack 30000" >> $CONFIGFILE
