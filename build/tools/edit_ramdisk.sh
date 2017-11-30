@@ -16,6 +16,7 @@ SWAP=40
 VFS=100
 GLVL=7
 GFREQ=200000000
+GMAXFREQ=600000000
 TEMPTT=65
 TEMPTL=45
 LPA=1
@@ -37,6 +38,7 @@ SWAP=20
 VFS=40
 GLVL=8
 GFREQ=133333333
+GMAXFREQ=432000000
 TEMPTT=60
 TEMPTL=40
 LPA=1
@@ -56,8 +58,9 @@ ABST=1
 TBST=1
 SWAP=60
 VFS=100
-GLVL=7
-GFREQ=200000000
+GLVL=6
+GFREQ=266666667
+GMAXFREQ=600000000
 TEMPTT=70
 TEMPTL=50
 LPA=0
@@ -271,6 +274,7 @@ echo "# GPU SETTINGS" >> $CONFIGFILE
 echo "write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/default_pwrlevel $GLVL" >> $CONFIGFILE
 echo "write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/min_pwrlevel $GLVL" >> $CONFIGFILE
 echo "write /sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/devfreq/min_freq $GFREQ" >> $CONFIGFILE
+echo "write /sys/class/kgsl/kgsl-3d0/max_gpuclk $GMAXFREQ" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# CPU BOOST PARAMETERS" >> $CONFIGFILE
 echo "write /sys/module/cpu_boost/parameters/input_boost_freq \"$BOOST\"" >> $CONFIGFILE
@@ -351,5 +355,5 @@ VOLT=$(cat /tmp/aroma/uv.prop | cut -d '=' -f2)
 if [ $VOLT == 1 ]; then
 echo "# CPU & GPU UV" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/GPU_mV_table \"700 720 760 800 860 900 920 980 1020\"" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table \"740 760 820 920 980 1020 1050 1060 1070 780 800 870 910 970 1020 1040\"" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table \"720 740 800 900 960 1000 1030 1040 1050 760 780 850 890 950 1000 1020 1020\"" >> $CONFIGFILE
 fi

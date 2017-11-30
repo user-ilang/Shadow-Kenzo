@@ -1,8 +1,8 @@
-ini_set("rom_name",             "Shadow");
+ini_set("rom_name",             "Shadow O");
 ini_set("rom_version",          "v3.7");
 ini_set("rom_author",           "energyspear17");
 ini_set("rom_device",           "Kenzo");
-ini_set("rom_date",             "November 29, 2017");
+ini_set("rom_date",             "November 30, 2017");
 
 ini_set("force_colorspace","rgba");
 #ini_set("dp","6");
@@ -48,7 +48,7 @@ selectbox(
 );
 
 selectbox(
-  "\n\n<@center>Apply UV to CPU(LITTLE) and GPU ?\nWarning ! </@>","<@center><b>\n\n\n\n\n\n\nThis will change your stock voltages.\nSelect NO if you are unsure about this.\n</b></@>","","uv.prop",
+  "\n\n<@center>Apply UV to CPU and GPU ?\nWarning ! </@>","<@center><b>\n\n\n\n\n\n\nThis will change your stock voltages.\nSelect NO if you are unsure about this.\n</b></@>","","uv.prop",
   "Yes, apply UV ","",0,
   "No ","",1
 );
