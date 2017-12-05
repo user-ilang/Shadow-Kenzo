@@ -43,6 +43,9 @@ cmd=$cmd" snd-soc-msm8x16-wcd.dig_core_collapse_enable=0"
 if [ $therm -eq 1 ]; then
 echo "Using old thermal engine"
 cp /tmp/thermal-engine /system/vendor/bin/thermal-engine
+elif [ $therm -eq 2 ]; then
+echo "Using new thermal engine"
+cp /tmp/thermal-engine-new /system/vendor/bin/thermal-engine
 fi
 cp /tmp/shadow.sh /system/etc/shadow.sh
 chmod 644 /system/etc/shadow.sh
