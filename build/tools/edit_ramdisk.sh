@@ -2,6 +2,7 @@
 
 CONFIGFILE="/tmp/init.shadow.rc"
 PROFILE=$(cat /tmp/aroma/profile.prop | cut -d '=' -f2)
+CMODE=$(cat /tmp/aroma/cmode.prop | cut -d '=' -f2)
 if [ $PROFILE == 1 ]; then
 GOV="impulse"
 BOOST="0"
@@ -29,8 +30,8 @@ GOV="cultivation"
 BOOST="0"
 FMS=400000
 FMB=400000
-FMAS=1382400
-FMAB=1612800
+FMAS=1305600
+FMAB=1305600
 AID=Y
 ABST=0
 TBST=0
@@ -176,7 +177,7 @@ echo "write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq $FMAS" >> $CON
 if [ $PROFILE == 1 ]; then
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/above_hispeed_delay 0" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/go_hispeed_load 100" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/timer_rate 40000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/timer_rate 30000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/hispeed_freq 1440000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/timer_slack -1" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/target_loads \"50 1017600:60 1190400:70 1305600:80 1382400:90 1401600:95\"" >> $CONFIGFILE
@@ -221,7 +222,7 @@ echo "write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq $FMAB" >> $CON
 if [ $PROFILE == 1 ]; then
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/above_hispeed_delay \"19000 1382400:39000\"" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/go_hispeed_load 100" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/timer_rate 40000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/timer_rate 30000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/hispeed_freq 1382400" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/timer_slack -1" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/target_loads \"85 1382400:90 1747200:95\"" >> $CONFIGFILE
@@ -235,7 +236,7 @@ echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/go_hispeed_load 99"
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/above_hispeed_delay 25000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/hispeed_freq 1056000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/min_sample_time 30000" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/timer_rate 25000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/timer_rate 40000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/max_freq_hysteresis 0" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/timer_slack -1" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/powersave_bias 1" >> $CONFIGFILE
@@ -314,12 +315,14 @@ echo "# KSM" >> $CONFIGFILE
 echo "write /sys/kernel/mm/ksm/run 0" >> $CONFIGFILE
 echo "write /sys/kernel/mm/ksm/run_charging 0" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
-echo "# LAZYPLUG" >> $CONFIGFILE
-echo "write /sys/module/lazyplug/parameters/lazyplug_active $LPA" >> $CONFIGFILE
-echo "write /sys/module/lazyplug/parameters/cpu_nr_run_threshold $LPT" >> $CONFIGFILE
-echo "write /sys/module/lazyplug/parameters/nr_run_hysteresis $LPH" >> $CONFIGFILE
-echo "write /sys/module/lazyplug/parameters/nr_run_profile_sel $LPP" >> $CONFIGFILE
-echo "write /sys/module/lazyplug/parameters/nr_possible_cores $LPC" >> $CONFIGFILE
+echo "# CORE MODE" >> $CONFIGFILE
+if [ $CMODE == 1 ]; then
+echo "write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 0" >> $CONFIGFILE
+elif [ $CMODE == 2 ]; then
+echo "write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 2" >> $CONFIGFILE
+fi
 echo "" >> $CONFIGFILE
 echo "# CPU SCHEDULER" >> $CONFIGFILE
 echo "chmod 755 /proc/sys/kernel/sched_boost" >> $CONFIGFILE
@@ -340,6 +343,9 @@ echo "write /sys/class/devfreq/cpubw/bw_hwmon/io_percent 34" >> $CONFIGFILE
 echo "write /sys/class/devfreq/cpubw/bw_hwmon/guard_band_mbps 100" >> $CONFIGFILE
 echo "write /sys/class/devfreq/qcom,memlat-cpu0.51/polling_interval 10" >> $CONFIGFILE
 echo "write /sys/class/devfreq/qcom,memlat-cpu4.52/polling_interval 10" >> $CONFIGFILE
+echo "" >> $CONFIGFILE
+echo "# FP BOOST" >> $CONFIGFILE
+echo "write /sys/kernel/fp_boost/enabled 1" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 echo "# POWERSUSPEND" >> $CONFIGFILE
 echo "write /sys/kernel/power_suspend/power_suspend_mode 3" >> $CONFIGFILE

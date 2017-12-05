@@ -1,8 +1,8 @@
 ini_set("rom_name",             "Shadow O");
-ini_set("rom_version",          "v3.8");
+ini_set("rom_version",          "v3.9");
 ini_set("rom_author",           "energyspear17");
 ini_set("rom_device",           "Kenzo");
-ini_set("rom_date",             "December 1, 2017");
+ini_set("rom_date",             "December 5, 2017");
 
 ini_set("force_colorspace","rgba");
 #ini_set("dp","6");
@@ -42,9 +42,15 @@ selectbox(
 
 selectbox(
   "\n\nSet your profile","<@center><b>\n\n\n\n\n\n\nThis will tune your default kernel settings according to your requirement.\n</b></@>","","profile.prop",
-  "Balanced profile","",1,
-  "Battery profile","",0,
-  "Performance profile","",0
+  "Balanced (recommended)","",1,
+  "Battery (may cause lags)","",0,
+  "Performance (may yield poor backup)","",0
+);
+
+selectbox(
+  "\n\nSet your core mode","<@center><b>\n\n\n\n\n\n\nThis will set no. of cores according to your requirement.\n</b></@>","","cmode.prop",
+  "Quad-core mode","",0,
+  "Hexa-core mode","",1
 );
 
 selectbox(
@@ -71,7 +77,8 @@ selectbox(
 selectbox(
   "\n\nWant old thermal engine ?","<@center><b>\n\n\n\n\n\n\nIf you have any slow charging issue then only it is recommended to select yes here.\n</b></@>","","thermal.prop",
   "Yes, old thermal","",0,
-  "No, new thermal","",1
+  "No, new thermal","",0,
+  "No, keep rom's default","",1
 );
 
 checkbox(
