@@ -15,7 +15,6 @@
  #
  # Please maintain this if you use this script or any part of it
  #
-selinx=$(cat /tmp/aroma/sel.prop | cut -d '=' -f2)
 qc=$(cat /tmp/aroma/crate.prop | cut -d '=' -f2)
 therm=$(cat /tmp/aroma/thermal.prop | cut -d '=' -f2)
 nos1=`cat /system/build.prop | grep ro.product.name=`
@@ -33,11 +32,7 @@ elif [ $qc -eq 3 ]; then
 dim=/tmp/dt2.img
 fi
 cmd="androidboot.hardware=qcom ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 ramoops_memreserve=4M"
-if [ $selinx -eq 2 ]; then
-cmd=$cmd" androidboot.selinux=enforcing"
-elif [ $selinx -eq 3 ]; then
 cmd=$cmd" androidboot.selinux=permissive"
-fi
 cmd=$cmd" cpu_max_c1=1440000"" cpu_max_c2=1843200"
 cmd=$cmd" snd-soc-msm8x16-wcd.dig_core_collapse_enable=0"
 if [ $therm -eq 1 ]; then
