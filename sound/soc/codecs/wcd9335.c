@@ -3688,7 +3688,7 @@ static void tasha_codec_hph_post_pa_config(struct tasha_priv *tasha,
 			if (!pdesireaudio_uhqa_mode)
 				scale_val = 0x1;
 			else
-				scale_val = 0x2;
+				scale_val = 0x3;
 			break;
 		}
 		break;
