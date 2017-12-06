@@ -4,7 +4,7 @@ CONFIGFILE="/tmp/init.shadow.rc"
 PROFILE=$(cat /tmp/aroma/profile.prop | cut -d '=' -f2)
 CMODE=$(cat /tmp/aroma/cmode.prop | cut -d '=' -f2)
 if [ $PROFILE == 1 ]; then
-GOV="impulse"
+GOV="interactive"
 BOOST="0"
 FMS=400000
 FMB=400000
@@ -175,17 +175,26 @@ echo "write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \"$GOV\"" >> $
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq $FMS" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq $FMAS" >> $CONFIGFILE
 if [ $PROFILE == 1 ]; then
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/above_hispeed_delay 0" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/go_hispeed_load 100" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/timer_rate 30000" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/hispeed_freq 1440000" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/timer_slack -1" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/target_loads \"50 1017600:60 1190400:70 1305600:80 1382400:90 1401600:95\"" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/min_sample_time 40000" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/io_is_busy 0" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/align_windows 0" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/max_freq_hysteresis 0" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu0/cpufreq/impulse/powersave_bias 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 100" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1440000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack -1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads \"50 1017600:60 1190400:70 1305600:80 1382400:90 1401600:95\"" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/align_windows 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/powersave_bias 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/fast_ramp_down 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/fastlane 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/fastlane_threshold 50" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/screen_off_maxfreq 1190400" >> $CONFIGFILE
 elif [ $PROFILE == 2 ]; then
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/cultivation/go_hispeed_load 99" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/cultivation/above_hispeed_delay 30000" >> $CONFIGFILE
@@ -212,6 +221,13 @@ echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 0" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/fast_ramp_down 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/fastlane 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/fastlane_threshold 50" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/screen_off_maxfreq 1305600" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu0/cpufreq/interactive/powersave_bias 0" >> $CONFIGFILE
 fi
 echo "" >> $CONFIGFILE
 echo "# TWEAK A72 CLUSTER GOVERNOR" >> $CONFIGFILE
@@ -220,17 +236,26 @@ echo "write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor \"$GOV\"" >> $
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq $FMB" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq $FMAB" >> $CONFIGFILE
 if [ $PROFILE == 1 ]; then
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/above_hispeed_delay \"19000 1382400:39000\"" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/go_hispeed_load 100" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/timer_rate 30000" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/hispeed_freq 1382400" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/timer_slack -1" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/target_loads \"85 1382400:90 1747200:95\"" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/min_sample_time 40000" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/io_is_busy 0" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/align_windows 0" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/max_freq_hysteresis 0" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/impulse/powersave_bias 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay \"19000 1382400:39000\"" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 90" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1382400" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack -1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads \"85 1382400:90 1747200:95\"" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/align_windows 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/powersave_bias 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/ignore_hispeed_on_notif 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/fast_ramp_down 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/fastlane 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/fastlane_threshold 50" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/screen_off_maxfreq 1113600" >> $CONFIGFILE
 elif [ $PROFILE == 2 ]; then
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/go_hispeed_load 99" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/cultivation/above_hispeed_delay 25000" >> $CONFIGFILE
@@ -256,8 +281,15 @@ echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost 0" >> $CONFIG
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/align_windows 0" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 1" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 1" >> $CONFIGFILE
-echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 45000" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/ignore_hispeed_on_notif 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/fast_ramp_down 1" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/fastlane 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/fastlane_threshold 50" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/screen_off_maxfreq 1382400" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0" >> $CONFIGFILE
+echo "write /sys/devices/system/cpu/cpu4/cpufreq/interactive/powersave_bias 0" >> $CONFIGFILE
 fi
 echo "" >> $CONFIGFILE
 echo "# ENABLE BCL & CORE CTL" >> $CONFIGFILE
