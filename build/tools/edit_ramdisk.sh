@@ -338,6 +338,12 @@ echo "" >> $CONFIGFILE
 echo "# POWERSUSPEND" >> $CONFIGFILE
 echo "write /sys/kernel/power_suspend/power_suspend_mode 3" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
+PD=`grep "item.0.4" /tmp/aroma/mods.prop | cut -d '=' -f2`
+if [ $PD = 1 ]; then
+echo "# PDesire Audio" >> $CONFIGFILE
+echo "write /sys/module/snd_soc_msm8x16_wcd/parameters/uhqa_mode_pdesireaudio 1" >> $CONFIGFILE
+echo "" >> $CONFIGFILE
+fi
 VOLT=$(cat /tmp/aroma/uv.prop | cut -d '=' -f2)
 if [ $VOLT == 1 ]; then
 echo "# CPU & GPU UV" >> $CONFIGFILE
