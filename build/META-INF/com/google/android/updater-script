@@ -31,6 +31,16 @@ delete("/system/etc/init.d/99DarknessTweaks");
 package_extract_dir("system", "/system");
 set_perm(0, 0, 0755, "/system/etc/init.d/98FSTrim");
 set_perm(0, 0, 0755, "/system/xbin/busybox");
+if
+  file_getprop("/tmp/aroma/mods.prop","item.0.4") == "1"
+then
+package_extract_dir("audio", "/system");
+set_perm(0, 0, 0644, "/system/etc/mixer_paths_wcd9326.xml");
+set_perm(0, 0, 0644, "/system/vendor/etc/mixer_paths_wcd9326.xml");
+set_perm_recursive(0, 0, 0644, 0644, "/system/usr/share/alsa/");
+set_perm_recursive(0, 0, 0755, 0755, "/system/usr/share/alsa/cards");
+set_perm_recursive(0, 0, 0755, 0755, "/system/usr/share/alsa/pcm");
+endif;
 unmount("/system");
 ui_print(" ");
 ui_print("Resurrecting kernel powers");
