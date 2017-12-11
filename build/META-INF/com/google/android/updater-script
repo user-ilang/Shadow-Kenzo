@@ -41,6 +41,24 @@ set_perm_recursive(0, 0, 0644, 0644, "/system/usr/share/alsa/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/usr/share/alsa/cards");
 set_perm_recursive(0, 0, 0755, 0755, "/system/usr/share/alsa/pcm");
 endif;
+if
+  file_getprop("/tmp/aroma/thermal.prop","selected") == "1"
+then
+package_extract_dir("thermal/old", "/system");
+set_perm(0, 0, 0755, "/system/vendor/bin/thermal-engine");
+set_perm(0, 0, 0644, "/system/vendor/lib/libthermalclient.so");
+set_perm(0, 0, 0644, "/system/vendor/lib64/libthermalclient.so");
+set_perm(0, 0, 0644, "/system/vendor/lib64/libthermalioctl.so");
+endif;
+if
+  file_getprop("/tmp/aroma/thermal.prop","selected") == "2"
+then
+package_extract_dir("thermal/new", "/system");
+set_perm(0, 0, 0755, "/system/vendor/bin/thermal-engine");
+set_perm(0, 0, 0644, "/system/vendor/lib/libthermalclient.so");
+set_perm(0, 0, 0644, "/system/vendor/lib64/libthermalclient.so");
+set_perm(0, 0, 0644, "/system/vendor/lib64/libthermalioctl.so");
+endif;
 unmount("/system");
 ui_print(" ");
 ui_print("Resurrecting kernel powers");

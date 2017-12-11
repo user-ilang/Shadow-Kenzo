@@ -16,7 +16,6 @@
  # Please maintain this if you use this script or any part of it
  #
 qc=$(cat /tmp/aroma/crate.prop | cut -d '=' -f2)
-therm=$(cat /tmp/aroma/thermal.prop | cut -d '=' -f2)
 nos1=`cat /system/build.prop | grep ro.product.name=`
 nos2=${nos1:16:8}
 if [ $nos2 == "nitrogen" ]; then
@@ -37,13 +36,6 @@ cmd=$cmd" cpu_max_c1=1440000"" cpu_max_c2=1843200"
 AUDIO=`grep "item.0.3" /tmp/aroma/mods.prop | cut -d '=' -f2`
 if [ $AUDIO = 1 ]; then
 cmd=$cmd" snd-soc-msm8x16-wcd.dig_core_collapse_enable=0"
-fi
-if [ $therm -eq 1 ]; then
-echo "Using old thermal engine"
-cp /tmp/thermal-engine /system/vendor/bin/thermal-engine
-elif [ $therm -eq 2 ]; then
-echo "Using new thermal engine"
-cp /tmp/thermal-engine-new /system/vendor/bin/thermal-engine
 fi
 cp /tmp/shadow.sh /system/etc/shadow.sh
 chmod 644 /system/etc/shadow.sh
