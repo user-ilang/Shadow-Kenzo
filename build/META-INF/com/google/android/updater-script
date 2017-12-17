@@ -35,16 +35,6 @@ set_perm(0, 0, 0755, "/system/vendor/bin/perfd");
 set_perm(0, 0, 0644, "/system/vendor/lib/libqti-perfd-client.so");
 set_perm(0, 0, 0644, "/system/vendor/lib64/libqti-perfd-client.so");
 if
-  file_getprop("/tmp/aroma/mods.prop","item.0.4") == "1"
-then
-package_extract_dir("audio", "/system");
-set_perm(0, 0, 0644, "/system/etc/mixer_paths_wcd9326.xml");
-set_perm(0, 0, 0644, "/system/vendor/etc/mixer_paths_wcd9326.xml");
-set_perm_recursive(0, 0, 0644, 0644, "/system/usr/share/alsa/");
-set_perm_recursive(0, 0, 0755, 0755, "/system/usr/share/alsa/cards");
-set_perm_recursive(0, 0, 0755, 0755, "/system/usr/share/alsa/pcm");
-endif;
-if
   file_getprop("/tmp/aroma/thermal.prop","selected") == "1"
 then
 package_extract_dir("thermal/old", "/system");
