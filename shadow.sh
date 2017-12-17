@@ -61,14 +61,14 @@ if ! [ -a $zimage ];
 then
 echo -e "$red << Failed to compile zImage, fix the errors first >>$white"
 else
-cd $KERNEL_DIR/build
+cd $KERNEL_DIR/build/$VERSION
 rm *.zip > /dev/null 2>&1
 echo -e "$yellow\n Build succesful, generating flashable zip now \n $white"
 zip -r shadow-$DEVICE-$VERSION-$date.zip * > /dev/null
 cd $KERNEL_DIR/export/$VERSION
 rm *.zip > /dev/null 2>&1
-cd $KERNEL_DIR/build
-mv $KERNEL_DIR/build/shadow-$DEVICE-$VERSION-$date.zip $KERNEL_DIR/export/$VERSION/shadow-$DEVICE-$VERSION-$date.zip
+cd $KERNEL_DIR/build/$VERSION
+mv $KERNEL_DIR/build/$VERSION/shadow-$DEVICE-$VERSION-$date.zip $KERNEL_DIR/export/$VERSION/shadow-$DEVICE-$VERSION-$date.zip
 End=$(date +"%s")
 Diff=$(($End - $Start))
 echo -e "$yellow $KERNEL_DIR/export/$VERSION/shadow-$DEVICE-$VERSION-$date.zip \n$white"
