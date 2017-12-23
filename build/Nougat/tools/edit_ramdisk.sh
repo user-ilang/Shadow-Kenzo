@@ -343,4 +343,10 @@ if [ $VOLT == 1 ]; then
 echo "# CPU & GPU UV" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/GPU_mV_table \"700 720 760 800 860 900 920 980 1020\"" >> $CONFIGFILE
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table \"720 740 800 900 960 1000 1030 1040 1050 760 780 850 890 950 1000 1020 1020\"" >> $CONFIGFILE
+echo "" >> $CONFIGFILE
+fi
+JACK=`grep "item.0.4" /tmp/aroma/mods.prop | cut -d '=' -f2`
+if [ $JACK = 1 ]; then
+echo "# NEW JACK DETECTION" >> $CONFIGFILE
+echo "write /sys/module/snd_soc_wcd_mbhc/parameters/new_jack 1" >> $CONFIGFILE
 fi
