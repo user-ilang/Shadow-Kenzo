@@ -85,7 +85,8 @@ checkbox(
   "\nOther settings","<@center><b>\nSelect the mods you want to install</b>\n\n</@>","","mods.prop",
   "Disable fsync","Faster fileystem performance, but risk of data loss",0,
   "USB fastcharge","Increase charge current while charging via USB",0,
-  "Audio mod capability","Disable audio codec power gating",0
+  "Audio mod capability","Disable audio codec power gating",0,
+  "New Jack Detection","Enable this if you have headset jack issues",0
 );
 
 menubox(
