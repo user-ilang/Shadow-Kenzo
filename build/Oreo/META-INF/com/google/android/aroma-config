@@ -1,8 +1,8 @@
 ini_set("rom_name",             "Shadow O");
-ini_set("rom_version",          "v4.5");
+ini_set("rom_version",          "v4.6");
 ini_set("rom_author",           "energyspear17@xda");
 ini_set("rom_device",           "Kenzo");
-ini_set("rom_date",             "December 23, 2017");
+ini_set("rom_date",             "December 27, 2017");
 
 ini_set("force_colorspace","rgba");
 #ini_set("dp","6");
@@ -31,6 +31,12 @@ alert(
   "For best experience -\n\n1.Don't flash over other kernels. Ensure that you either have a previous version of Shadow or the kernel that came with your rom.\n\n2.Do not use any scripts to tune cpu governors, this kernel already does that for your cpu.\n\n",
   "@warning",
   "OK"
+);
+
+selectbox(
+  "\n\nSet your netlink mode","<@center><b>\n\n\n\n\n\n\nThis will set netlink value according to your rom.\n</b></@>","","netmode.prop",
+  "OLD mode","For NOS, ABC and MCAOSP",0,
+  "LOS mode","For Cardinal and PE",1
 );
 
 selectbox(

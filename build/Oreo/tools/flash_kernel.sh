@@ -16,12 +16,6 @@
  # Please maintain this if you use this script or any part of it
  #
 qc=$(cat /tmp/aroma/crate.prop | cut -d '=' -f2)
-nos1=`cat /system/build.prop | grep ro.product.name=`
-nos2=${nos1:16:8}
-if [ $nos2 == "nitrogen" ]; then
-echo "NitrogenOS detected, forcing permissive"
-selinx=3
-fi
 zim=/tmp/Image1
 if [ $qc -eq 1 ]; then
 dim=/tmp/dt1.img
@@ -36,6 +30,16 @@ cmd=$cmd" cpu_max_c1=1440000"" cpu_max_c2=1843200"
 AUDIO=`grep "item.0.3" /tmp/aroma/mods.prop | cut -d '=' -f2`
 if [ $AUDIO = 1 ]; then
 cmd=$cmd" snd-soc-msm8x16-wcd.dig_core_collapse_enable=0"
+fi
+JACK=`grep "item.0.4" /tmp/aroma/mods.prop | cut -d '=' -f2`
+if [ $JACK = 0 ]; then
+cmd=$cmd" android.audiojackmode=stock"
+fi
+NET=$(cat /tmp/aroma/netmode.prop | cut -d '=' -f2)
+if [ $NET -eq 1 ]; then
+cmd=$cmd" android.gdxnetlink=old"
+elif [ $NET -eq 1 ]; then
+cmd=$cmd" android.gdxnetlink=los"
 fi
 cp /tmp/shadow.sh /system/etc/shadow.sh
 chmod 644 /system/etc/shadow.sh
