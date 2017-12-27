@@ -133,4 +133,4 @@ function get-set-forall() {
     fi
 
     # Set scheduler
-    write /sys/block/mmcblk0/queue/scheduler maple
+    write /sys/block/mmcblk0/queue/scheduler zen
