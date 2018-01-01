@@ -34,7 +34,7 @@ Start=$(date +"%s")
 DTBTOOL=$KERNEL_DIR/dtbTool
 cd $KERNEL_DIR
 export ARCH=arm64
-export CROSS_COMPILE="/home/$USER/toolchain/aarch64-linux-android-6.x/bin/aarch64-linux-android-"
+export CROSS_COMPILE="/home/$USER/toolchain/gcc-linaro-6.4.1/bin/aarch64-linux-gnu-"
 echo -e "$yellow Running make clean before compiling \n$white"
 make clean > /dev/null
 if [ $qc == 2 ]; then
