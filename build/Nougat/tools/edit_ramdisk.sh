@@ -287,9 +287,6 @@ echo "" >> $CONFIGFILE
 echo "# FSYNC" >> $CONFIGFILE
 echo "write /sys/module/sync/parameters/fsync_enabled $DFS" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
-echo "# RUN USERTWEAKS SERVICE" >> $CONFIGFILE
-echo "start usertweaks" >> $CONFIGFILE
-echo "" >> $CONFIGFILE
 echo "write /sys/module/mdss_fb/parameters/backlight_dimmer y" >> $CONFIGFILE
 echo "write /sys/block/mmcblk0/queue/iostats 0" >> $CONFIGFILE
 echo "write /sys/block/mmcblk1/queue/iostats 0" >> $CONFIGFILE
@@ -345,3 +342,6 @@ echo "write /sys/devices/system/cpu/cpu0/cpufreq/GPU_mV_table \"700 720 760 800 
 echo "write /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table \"720 740 800 900 960 1000 1030 1040 1050 760 780 850 890 950 1000 1020 1020\"" >> $CONFIGFILE
 echo "" >> $CONFIGFILE
 fi
+echo "" >> $CONFIGFILE
+echo "# RUN USERTWEAKS SERVICE" >> $CONFIGFILE
+echo "start usertweaks" >> $CONFIGFILE
