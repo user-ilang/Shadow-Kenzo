@@ -86,7 +86,6 @@ GTAGS
 
 *.rej
 *.diff
-*.patch
 *.list
 out/*
 *.orig
@@ -100,3 +99,7 @@ extra_certificates
 signing_key.priv
 signing_key.x509
 x509.genkey
+
+buildlog.txt
+ch.txt
+impvar
