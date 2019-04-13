@@ -35,12 +35,6 @@ JACK=`grep "item.0.4" /tmp/aroma/mods.prop | cut -d '=' -f2`
 if [ $JACK = 0 ]; then
 cmd=$cmd" android.audiojackmode=stock"
 fi
-NET=$(cat /tmp/aroma/netmode.prop | cut -d '=' -f2)
-if [ $NET -eq 1 ]; then
-cmd=$cmd" android.gdxnetlink=old"
-elif [ $NET -eq 1 ]; then
-cmd=$cmd" android.gdxnetlink=los"
-fi
 cp /tmp/shadow.sh /system/etc/shadow.sh
 chmod 644 /system/etc/shadow.sh
 cp -f /tmp/cpio /sbin/cpio
