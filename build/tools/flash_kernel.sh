@@ -55,10 +55,6 @@ cp /tmp/init.spectrum.sh /tmp/ramdisk/
 cp /tmp/init.qcom.post_boot.sh /system/etc/init.qcom.post_boot.sh
 cp /tmp/gxfingerprint.default.so /system/lib64/hw/gxfingerprint.default.so
 chmod 644 /system/etc/init.qcom.post_boot.sh
-if [ $(grep -c "lazytime" fstab.qcom) -ne 0 ]; then
-cp /tmp/fstab.qcom /tmp/ramdisk/
-chmod 640 /tmp/ramdisk/fstab.qcom
-fi
 if [ -f /tmp/ramdisk/init.darkness.rc ]; then
 rm /tmp/ramdisk/init.darkness.rc
 fi
