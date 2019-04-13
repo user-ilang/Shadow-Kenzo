@@ -14,7 +14,7 @@ BUILD_HOST="gcp"
 DEVICE="kenzo"
 VERSION="pie"
 ARCH="arm64"
-CROSS_COMPILE="/home/${USER}/toolchain/gcc-linaro-7.4.1/bin/aarch64-linux-gnu-"
+CROSS_COMPILE="/home/${USER}/toolchain/gcc-linaro-6.4.1/bin/aarch64-linux-gnu-"
 CCACHE_DIR="~/.ccache"
 DTBTOOL=${KERNEL_DIR}/dtbTool
 
@@ -73,6 +73,9 @@ if ! [ -a ${zimage} ]; then
     exit 1
 fi
 echo -e "$yellow\n Build successful !\n $white"
+echo -e "$blue\n Making DTB... \n $white"
+${DTBTOOL} -2 -o ${KERNEL_DIR}/arch/arm64/boot/dt.img -s 2048 -p ${KERNEL_DIR}/scripts/dtc/ ${KERNEL_DIR}/arch/arm/boot/dts/ &>/dev/null
+mv ${KERNEL_DIR}/arch/arm64/boot/dt.img ${KERNEL_DIR}/build/tools/dt2.img
 End=$(date +"%s")
 Diff=$(($End - $Start))
 echo -e "$gre << Build completed in $(($Diff / 60)) minutes and $(($Diff % 60)) seconds >> \n $white" 
@@ -110,6 +113,9 @@ if ! [ -a ${zimage} ]; then
     exit 1
 fi
 echo -e "$yellow\n Build successful !\n $white"
+echo -e "$blue\n Making DTB... \n $white"
+${DTBTOOL} -2 -o ${KERNEL_DIR}/arch/arm64/boot/dt.img -s 2048 -p ${KERNEL_DIR}/scripts/dtc/ ${KERNEL_DIR}/arch/arm/boot/dts/ &>/dev/null
+mv ${KERNEL_DIR}/arch/arm64/boot/dt.img ${KERNEL_DIR}/build/tools/dt1.img
 End=$(date +"%s")
 Diff=$(($End - $Start))
 echo -e "$gre << Build completed in $(($Diff / 60)) minutes and $(($Diff % 60)) seconds >> \n $white" 
@@ -145,13 +151,7 @@ function makezip() {
 echo -e "$blue\n Generating flashable zip now... \n $white"
 cd ${KERNEL_DIR}/build/
 rm *.zip > /dev/null 2>&1
-echo -e "$blue\n Making DTB... \n $white"
-${DTBTOOL} -2 -o ${KERNEL_DIR}/arch/arm64/boot/dt.img -s 2048 -p ${KERNEL_DIR}/scripts/dtc/ ${KERNEL_DIR}/arch/arm/boot/dts/ &>/dev/null
-if [ "$2" = "qc" ]; then
-mv ${KERNEL_DIR}/arch/arm64/boot/dt.img ${KERNEL_DIR}/build/tools/dt2.img
-else
-mv ${KERNEL_DIR}/arch/arm64/boot/dt.img ${KERNEL_DIR}/build/tools/dt1.img
-fi
+
 cp ${KERNEL_DIR}/arch/arm64/boot/Image ${KERNEL_DIR}/build/tools/Image1
 cd ${KERNEL_DIR}/build/
 zip -r ${zip_name} * > /dev/null
@@ -231,19 +231,16 @@ if [ "$1" = "" ]; then
 
     case $ch in
         1)
-            read -r -p "Do you want to compile with qc ? y/n :" CL_ANS
-            if [ "$CL_ANS" = "y" ]; then
-                build_type="qc"
+            read -r -p "Do you want to make flashable zip ? y/n :" ZIP
+            if [ "$ZIP" = "y" ]; then
+                read -r -p "Do you want to Upload to Gdrive/Telegram ? g/t/tg/n :" GD
             fi
             echo -e "$yellow Running make clean before compiling \n$white"
             clean
             Start=$(date +"%s")
-            build $build_type
-            read -r -p "Do you want to make flashable zip ? y/n :" ZIP
-            if [ "$ZIP" = "y" ]; then
-                read -r -p "Do you want to Upload to Gdrive/Telegram ? g/t/tg/n :" GD
-                makezip $GD $build_type
-            fi
+            build
+	    build 'qc'
+	    makezip $GD
             ;;
         2)
             menuconfig
@@ -258,16 +255,13 @@ if [ "$1" = "" ]; then
 else
     case $1 in
         b)
-            if [ "$2" = "" ]; then
-                echo -e "$red << Please Specify qc or nqc... >>$white"
-                exit 2
-            fi
             echo -e "$yellow Running make clean before compiling \n$white"
             clean
             Start=$(date +"%s")
-            build $2
-            if [ "$3" = "y" ]; then
-                makezip $4 $2
+            build
+	    build 'qc'
+            if [ "$2" = "y" ]; then
+                makezip $3
             fi
             ;;
         mc)
@@ -281,7 +275,7 @@ else
                 echo -e "$red << Please Specify telegram or gdrive (t/g/tg)... >>$white"
                 exit 2
             fi
-	    makezip $2 $3
+	    makezip $2
 	    ;;
         *)
            echo -e "$red << Unknown argument passed... >>$white"
