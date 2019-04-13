@@ -6,8 +6,7 @@
 #include <net/sock.h>
 #include <net/netlink.h>
 
-extern unsigned int netlink_test;
-
+#define NETLINK_TEST 30
 #define MAX_MSGSIZE (4*1024)
 int stringlength(char *s);
 void sendnlmsg(char *message);
@@ -79,11 +78,11 @@ int netlink_init(void)
 	netlink_cfg.cb_mutex = NULL;
 
 /*
-nl_sk = netlink_kernel_create(&init_net, netlink_test, 1,
+nl_sk = netlink_kernel_create(&init_net, NETLINK_TEST, 1,
 nl_data_ready, NULL, THIS_MODULE);
 */
 
-	nl_sk = netlink_kernel_create(&init_net, netlink_test, &netlink_cfg);
+	nl_sk = netlink_kernel_create(&init_net, NETLINK_TEST, &netlink_cfg);
 
 	if (!nl_sk) {
 		pr_err("my_net_link: create netlink socket error.\n");
